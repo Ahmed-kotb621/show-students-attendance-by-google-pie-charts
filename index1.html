@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawStuff);
+
+      function drawStuff() {
+        var data = new google.visualization.arrayToDataTable([
+            {% for key, value in data.items() %}
+              {% if value is string %}
+                ['{{ key }}', '{{ value }}'],
+              {% else %}
+                ['{{ key }}', {{ value }}],
+              {% endif %}
+            {% endfor %}
+        ]);
+
+        var options = {
+          width: 600,
+          legend: { position: 'none' },
+          chart: {
+            title: 'Lectures Attendance Report Graph',
+            subtitle: 'Number Of Students In Each Lecture' },
+          axes: {
+            x: {
+              0: { side: 'bottom', label: 'No. Of Students'} // Top x-axis.
+            }
+          },
+          bar: { groupWidth: "60%" }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('top_x_div'));
+        // Convert the Classic options to Material options.
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      };
+    </script>
+  </head>
+  <body>
+    <div id="top_x_div" style="width: 800px; height: 400px;"></div>
+  </body>
+</html>
