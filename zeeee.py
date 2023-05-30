@@ -12,15 +12,12 @@ def chart():
     filenames = glob.glob(path + "/*.csv")
     atten=0
     count=0
-    #name_to_search ="sayed kotb"#input("Enter Name To Search : ")
+    #input("Enter Name To Search : ")
     data1 = []
     for filename in filenames:
         data1.append(len(pd.read_csv(filename)))
         
                         
-
-
-   
     data ={'Task': 'Hours per Day','Lecture 1': data1[0],'Lecture 2':  data1[1],'Lecture 3': data1[2],'Lecture 4':  data1[3],'Lecture 5': data1[4],'Lecture 6':  data1[5],}
     return render_template('index1.html',data=data)
     
